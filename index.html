@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Theremin</title>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    
+    <script>
+        const myVideo = document.createElement("video")
+        navigator.mediaDevices.getUserMedia({video:true}).then(function(rawData) {
+            myVideo.srcObject = rawData
+            myVideo.play()
+            myVideo.onloadeddata=function() {
+                myCanvas.width = myVideo.videoWidth
+                myCanvas.height = myVideo.videoHeight
+                new Effect(myCanvas, myVideo)
+            }
+        }).catch(function(err){alert(err)})
+        </script>
+
+        <script src="utils.js"></script>
+        <script src="effect.js"></script>
+</body>
+</html>
